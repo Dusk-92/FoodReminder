@@ -1,57 +1,43 @@
 ------------------------------------------------------------------------------------------
--- GlobalEN file
--- FoodReminder - Dusk
--- 17 avril 2021
--- updated 28 decembre 2023
+-- English
 ------------------------------------------------------------------------------------------
 _G.T = {};
-	------------------------------------------------------------------------------------------
-	-- Francais --
-	------------------------------------------------------------------------------------------
-	T[ "PluginName" ] = "FoodReminder";
-	T[ "PluginText" ] = "";
-	T[ "Loaded" ] = "Loaded";
-	T[ "Unactivated" ] = "Unactivated";
-	T[ "PluginOptionsWindowShow" ] = "Display the options Window";
-	------------------------------------------------------------------------------------------
-	-- help --
-	------------------------------------------------------------------------------------------
-	T[ "PluginHelp1" ] = "\n\nList of all commands:\n";
-	T[ "PluginHelp2" ] = "/Fo show - show the window.\n";
-	T[ "PluginHelp3" ] = "/Fo hide - hide the window.\n";
-	T[ "PluginHelp4" ] = "/Fo options - display the options window.\n";
-	T[ "PluginHelp5" ] = "/Fo esc - activate or deactivate the escape key.\n";
-	T[ "PluginHelp6" ] = "/Fo alt - Activate or deactivate the alt key to move the icon.\n";
-	T[ "PluginHelp7" ] = "/Fo clear - delete all shortcuts.\n";
-	T[ "PluginHelp8" ] = "/Fo lock to lock or unlock the icons\n";
-	T[ "PluginHelp9" ] = "/Fo toggle - Display or hide the window\n";
-	T[ "PluginHelp10" ] = "/Fo repos Afficher la position actuelle de l'icone\n";
-	T[ "PluginHelp11" ] = "/Fo repos xxx xxx positionner l'icone sur les coordonn\195\169es xxx et xxx\n\n";
-	T[ "PluginHelp12" ] = "Right click the icon to show the options panel";
-	------------------------------------------------------------------------------------------
-	-- command text  --
-	------------------------------------------------------------------------------------------
-	T[ "PluginWindowShow" ] = "Show the window.";
-	T[ "PluginWindowHide" ] = "Hide the window.";
-	T[ "PluginWindowClear" ] = "Delete all shortcuts.";
-	T[ "PluginLocked" ] = "Icons Locked";
-	T[ "PluginUnlocked" ] = "Icons Unlocked";
-	T[ "PluginWindowsAlwaysShowOn" ] = "Always display windows ON";
-	T[ "PluginWindowsAlwaysShowOff" ] = "Always display windows OFF";
-	T[ "PluginEscEnable" ] = "Escape key Activated";
-	T[ "PluginEscDesable" ] = "Escape key Desactivated";
-	T[ "PluginAltEnable" ] = "Alt key Activated";
-	T[ "PluginAltDesable" ] = "Alt key Desactivated";
-	T[ "PluginPosition" ] = "Actual icon position";
-	T[ "PluginResize" ] = "Repositionning the icon to ";
-	T[ "PluginUnload" ] = "Unload the plugin with : /plugins unload ";
-	T[ "PluginReload" ] = "Load the plugin with : /plugins load ";
-	------------------------------------------------------------------------------------------
-	-- Options --
-	------------------------------------------------------------------------------------------
-	T[ "PluginOptionsText" ] = "FoodReminder Options Window";
-	T[ "PluginOption1" ] = "Number of lines";
-	T[ "PluginOption2" ] = "Number of slots per line";
-	T[ "PluginOption3" ] = " Display the window border";
-	T[ "PluginOption4" ] = " Always display windows";
-	T[ "PluginOptionValidate" ] = "Validate Changes";
+
+T["PluginName"] = "FoodReminder";
+T["PluginText"] = "";
+T["Loaded"] = "loaded";
+T["Unactivated"] = "unloaded";
+T["PluginOptionsWindowShow"] = "Show the options window";
+
+T["PluginHelp1"] = "\n\nCommand list:\n";
+T["PluginHelp2"] = "/Fo show - show the window.\n";
+T["PluginHelp3"] = "/Fo hide - hide the window.\n";
+T["PluginHelp4"] = "/Fo options - show the options window.\n";
+T["PluginHelp5"] = "/Fo esc - enable/disable closing with Escape.\n";
+T["PluginHelp6"] = "/Fo alt - enable/disable requiring Alt to move the icon.\n";
+T["PluginHelp7"] = "/Fo clear - delete all shortcuts.\n";
+T["PluginHelp8"] = "/Fo lock - lock/unlock shortcuts.\n";
+T["PluginHelp9"] = "/Fo toggle - show/hide the window.\n";
+T["PluginHelp10"] = "/Fo repos - show the current icon position.\n";
+T["PluginHelp11"] = "/Fo repos X Y - move the icon to X/Y coordinates.\n\n";
+T["PluginHelp12"] = "Right-click the icon: options. Shift + left-click: lock/unlock.";
+
+T["PluginWindowShow"] = "Window shown.";
+T["PluginWindowHide"] = "Window hidden.";
+T["PluginWindowClear"] = "All shortcuts deleted.";
+T["PluginLocked"] = "Shortcuts locked";
+T["PluginUnlocked"] = "Shortcuts unlocked";
+T["PluginEscEnable"] = "Escape key enabled";
+T["PluginEscDesable"] = "Escape key disabled";
+T["PluginAltEnable"] = "Alt required to move the icon";
+T["PluginAltDesable"] = "Icon can be moved without Alt";
+T["PluginPosition"] = "Current icon position";
+T["PluginResize"] = "Icon moved to ";
+T["PluginPositionInvalid"] = "Invalid coordinates. Use /Fo repos X Y.";
+
+T["PluginOptionsText"] = "FoodReminder Options";
+T["PluginOption1"] = "Number of rows";
+T["PluginOption2"] = "Number of slots per row";
+T["PluginOption3"] = "Show the window border";
+T["PluginOption4"] = "Always show the window";
+T["PluginOptionValidate"] = "Apply changes";

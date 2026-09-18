@@ -536,7 +536,7 @@ settings = {
     borderShow = { 
         value = true 
     },
-    isLocked = true,
+    isLocked = false,
     nbrSlots = { 
         nbr = 7 
     },

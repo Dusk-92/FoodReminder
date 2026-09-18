@@ -1,55 +1,43 @@
 ------------------------------------------------------------------------------------------
--- GlobalFR file
--- FoodReminder - Dusk
--- 17 avril 2021
--- updated 28 decembre 2023
+-- Français
 ------------------------------------------------------------------------------------------
 _G.T = {};
-	------------------------------------------------------------------------------------------
-	-- Francais --
-	------------------------------------------------------------------------------------------
-	T[ "PluginName" ] = "FoodReminder";
-	T[ "PluginText" ] = "";
-	T[ "Loaded" ] = "charg\195\169";
-	T[ "Unactivated" ] = "D\195\169sactiv\195\169";
-	T[ "PluginOptionsWindowShow" ] = "Affiche la fen\195\168tre d'options";
-	------------------------------------------------------------------------------------------
-	-- help --
-	------------------------------------------------------------------------------------------
-	T[ "PluginHelp1" ] = "\n\nListe des commandes:\n";
-	T[ "PluginHelp2" ] = "/Fo show - affiche la fen\195\168tre.\n";
-	T[ "PluginHelp3" ] = "/Fo hide - cache la fen\195\168tre.\n";
-	T[ "PluginHelp4" ] = "/Fo options - affiche la fen\195\168tre d'options.\n";
-	T[ "PluginHelp5" ] = "/Fo esc - active ou desactive la touche escape.\n";
-	T[ "PluginHelp6" ] = "/Fo alt - Active ou d\195\169sactive la touche alt pour le d\195\169placement de l'icon.\n";
-	T[ "PluginHelp7" ] = "/Fo clear - efface tous les raccourcis.\n";
-	T[ "PluginHelp8" ] = "/Fo lock pour verrouill\195\169 ou d\195\169verrouill\195\169 les icones\n";
-	T[ "PluginHelp9" ] = "/Fo toggle - Affiche ou cache la fen\195\168tre\n";
-	T[ "PluginHelp10" ] = "/Fo repos Afficher la position actuelle de l'icone\n";
-	T[ "PluginHelp11" ] = "/Fo repos xxx xxx positionner l'icone sur les coordonn\195\169es xxx et xxx\n\n";
-	T[ "PluginHelp12" ] = "Clique droit sur l'icon pour afficher la fen\195\168tre d'options";
-	------------------------------------------------------------------------------------------
-	-- command text  --
-	------------------------------------------------------------------------------------------
-	T[ "PluginWindowShow" ] = "Affiche la fen\195\168tre.";
-	T[ "PluginWindowHide" ] = "Cache la fen\195\168tre.";
-	T[ "PluginWindowClear" ] = "Efface tous les raccourcis.";
-	T[ "PluginLocked" ] = "Icones verrouill\195\169es";
-	T[ "PluginUnlocked" ] = "Icones d\195\169verouill\195\169es";
-	T[ "PluginEscEnable" ] = "Touche Escape activ\195\169";
-	T[ "PluginEscDesable" ] = "Touche Escape desactiv\195\169";
-	T[ "PluginAltEnable" ] = "Touche Alt activ\195\169";
-	T[ "PluginAltDesable" ] = "Touche Alt desactiv\195\169";
-	T[ "PluginPosition" ] = "Position icone actuelle";
-	T[ "PluginResize" ] = "Repositionner l'icone pour ";
-	T[ "PluginUnload" ] = "D\195\169chargez le plugin avec : /plugins vider";
-	T[ "PluginReload" ] = "Chargez le plugin avec : /plugins charger";
-	------------------------------------------------------------------------------------------
-	-- Options --
-	------------------------------------------------------------------------------------------
-	T[ "PluginOptionsText" ] = "FoodReminder Options";
-	T[ "PluginOption1" ] = "Nombre de lignes";
-	T[ "PluginOption2" ] = "Nombre d'emplacements par ligne";
-	T[ "PluginOption3" ] = " Afficher la bordure de la fen\195\168tre";
-	T[ "PluginOption4" ] = " Afficher toujours la fen\195\168tre";
-	T[ "PluginOptionValidate" ] = "Valider les changements";
+
+T["PluginName"] = "FoodReminder";
+T["PluginText"] = "";
+T["Loaded"] = "charg\195\169";
+T["Unactivated"] = "d\195\169sactiv\195\169";
+T["PluginOptionsWindowShow"] = "Affiche la fen\195\168tre d'options";
+
+T["PluginHelp1"] = "\n\nListe des commandes :\n";
+T["PluginHelp2"] = "/Fo show - affiche la fen\195\168tre.\n";
+T["PluginHelp3"] = "/Fo hide - cache la fen\195\168tre.\n";
+T["PluginHelp4"] = "/Fo options - affiche la fen\195\168tre d'options.\n";
+T["PluginHelp5"] = "/Fo esc - active/d\195\169sactive la fermeture avec \195\137chap.\n";
+T["PluginHelp6"] = "/Fo alt - active/d\195\169sactive Alt requis pour d\195\169placer l'ic\195\180ne.\n";
+T["PluginHelp7"] = "/Fo clear - efface tous les raccourcis.\n";
+T["PluginHelp8"] = "/Fo lock - verrouille/d\195\169verrouille les raccourcis.\n";
+T["PluginHelp9"] = "/Fo toggle - affiche/cache la fen\195\168tre.\n";
+T["PluginHelp10"] = "/Fo repos - affiche la position actuelle de l'ic\195\180ne.\n";
+T["PluginHelp11"] = "/Fo repos X Y - repositionne l'ic\195\180ne aux coordonn\195\169es X/Y.\n\n";
+T["PluginHelp12"] = "Clic droit sur l'ic\195\180ne : options. Maj + clic gauche : verrouillage.";
+
+T["PluginWindowShow"] = "Fen\195\168tre affich\195\169e.";
+T["PluginWindowHide"] = "Fen\195\168tre masqu\195\169e.";
+T["PluginWindowClear"] = "Tous les raccourcis ont \195\169t\195\169 effac\195\169s.";
+T["PluginLocked"] = "Raccourcis verrouill\195\169s";
+T["PluginUnlocked"] = "Raccourcis d\195\169verrouill\195\169s";
+T["PluginEscEnable"] = "Touche \195\137chap activ\195\169e";
+T["PluginEscDesable"] = "Touche \195\137chap d\195\169sactiv\195\169e";
+T["PluginAltEnable"] = "Alt requis pour d\195\169placer l'ic\195\180ne";
+T["PluginAltDesable"] = "D\195\169placement de l'ic\195\180ne sans Alt";
+T["PluginPosition"] = "Position actuelle de l'ic\195\180ne";
+T["PluginResize"] = "Ic\195\180ne repositionn\195\169e en ";
+T["PluginPositionInvalid"] = "Coordonn\195\169es invalides. Utilise /Fo repos X Y.";
+
+T["PluginOptionsText"] = "Options de FoodReminder";
+T["PluginOption1"] = "Nombre de lignes";
+T["PluginOption2"] = "Nombre d'emplacements par ligne";
+T["PluginOption3"] = "Afficher la bordure de la fen\195\168tre";
+T["PluginOption4"] = "Toujours afficher la fen\195\168tre";
+T["PluginOptionValidate"] = "Valider les changements";

@@ -1,54 +1,12 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Plugin>
-	<Information>
-		<Name>FoodReminder</Name>
-		<Author>Dusk</Author>
-		<Version>1.16</Version>
-		<Description>
-DESCRIPTION (Francais)
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-FoodReminder est un petit plugin pour avoir un acces rapide a vos consomable
-
-Vous pouvez effacer un raccourci avec la mollete de la souris sur le reccourci
-
-Vous pouvez cliquez sur le bouton FOODREMINDER pour afficher la fenetre ou cliquez sur le bouton pour la cacher
-
-Vous pouvez ferme la fenetre en cliquant sur la croix
-et vous pouvez la reouvrir en cliquant sur l'icon FOODREMINDER
-
-DESCRIPTION (English)
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-FoodReminder is a small plugin to have quick access to your consomable
-
-You can delete a shortcut with the mouse wheel on the shortcut
-
-You can click the FOODREMINDER button to display the window or click the button to hide it
-
-You can close the window by clicking on the cross
-and you can reopen it by clicking on the icon FOODREMINDER
-
-DESCRIPTION (Deutsche)  
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-FoodReminder ist ein kleines Plugin, mit dem Sie schnell auf Ihre consumable
-
-Sie konnen eine Verknupfung mit dem Mausrad auf der Verknupfung loschen
-
-Sie konnen auf die Schaltflache FOODREMINDER klicken, um das Fenster anzuzeigen, oder auf die Schaltflache klicken, um es auszublenden
-
-Sie konnen das Fenster schliessen, indem Sie auf das Kreuz klicken
-und Sie konnen es erneut offnen, indem Sie auf das Symbol FOODREMINDER klicken
-
-LIST OF ALL COMMANDS
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-(French)
-/Fo help -- montre l aide
-(English)
-/Fo help - show the help
-(Deutsche)
-/Fo help - zeige das hilfe
-</Description>
-<Image>Dusk/FoodReminder/Resources/pluginmanager_icon.tga</Image>
-	</Information>
-	<Package>Dusk.FoodReminder.Main</Package>
-<Configuration Apartment="FoodReminder" />
+    <Information>
+        <Name>FoodReminder</Name>
+        <Author>Dusk</Author>
+        <Version>1.17</Version>
+        <Description>Quick-slot window for food, drinks and other consumables. FR / EN / DE.</Description>
+        <Image>Dusk/FoodReminder/Resources/FoodAndDrinks.tga</Image>
+    </Information>
+    <Package>Dusk.FoodReminder.Main</Package>
+    <Configuration Apartment="FoodReminder" />
 </Plugin>

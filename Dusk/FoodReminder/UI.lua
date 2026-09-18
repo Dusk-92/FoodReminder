@@ -1,210 +1,206 @@
 ------------------------------------------------------------------------------------------
--- UI file
+-- Main UI
 -- FoodReminder - Dusk
--- 7 january 2021
 ------------------------------------------------------------------------------------------
--- create the window
-------------------------------------------------------------------------------------------
+
 centerWindow = {};
-centerLabel = {};
 centerQS = {};
 
+local function ClampMainWindowPosition(window)
+    local x = tonumber(settings.windowPosition.xPos) or 500;
+    local y = tonumber(settings.windowPosition.yPos) or 500;
+    local maxX = math.max(0, Turbine.UI.Display:GetWidth() - window:GetWidth());
+    local maxY = math.max(0, Turbine.UI.Display:GetHeight() - window:GetHeight());
+
+    x = math.max(0, math.min(maxX, math.floor(x)));
+    y = math.max(0, math.min(maxY, math.floor(y)));
+
+    settings.windowPosition.xPos = x;
+    settings.windowPosition.yPos = y;
+    return x, y;
+end
+
 function GenerateWindow()
+    local iconSize = 40;
+    local horizontalPosition = 20;
+    local verticalPosition = 40;
+    local nbrSlot = 0;
+    local slotsPerLine = tonumber(settings.nbrSlots.nbr) or 7;
+    local lines = tonumber(settings.nbrLine.nbr) or 1;
+    local totalSlots = math.min(NbrSlotsMax, slotsPerLine * lines);
+    local windowWidth = (slotsPerLine * (iconSize + 2)) + 38;
+    local windowHeight = (lines * (iconSize + 4)) + 60;
 
-		iconSize = 40;
+    if settings.borderShow.value == true then
+        FoodAndDrinks = Turbine.UI.Lotro.GoldWindow();
+    else
+        FoodAndDrinks = Turbine.UI.Extensions.SimpleWindow();
+    end
 
-		local horizontalPosition = 20 ;
-		local verticalPosition = 40;
-		local nbrSlot = 0;
-		local windowWidth = (settings["nbrSlots"]["nbr"] * (iconSize + 2)) + 38;
-		local windowHeight = (settings["nbrLine"]["nbr"] * (iconSize + 4)) + 60;
-		local totalSlots = tonumber(settings["nbrSlots"]["nbr"]) * tonumber(settings["nbrLine"]["nbr"]);
+    FoodAndDrinks:SetSize(windowWidth, windowHeight);
+    FoodAndDrinks:SetText(T["PluginName"]);
 
-		if(settings["borderShow"]["value"] == true)then
-			FoodAndDrinks=Turbine.UI.Lotro.GoldWindow(); 
-		else
-			FoodAndDrinks=Turbine.UI.Extensions.SimpleWindow(); 
-		end
-		FoodAndDrinks:SetSize(windowWidth, windowHeight); 
-		FoodAndDrinks:SetText(  T[ "PluginName" ] ); 
+    FoodAndDrinks.Message = Turbine.UI.Label();
+    FoodAndDrinks.Message:SetParent(FoodAndDrinks);
+    FoodAndDrinks.Message:SetSize(150, 10);
+    FoodAndDrinks.Message:SetPosition(windowWidth / 2 - 75, windowHeight - 20);
+    FoodAndDrinks.Message:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleCenter);
+    FoodAndDrinks.Message:SetText(settings.borderShow.value == true and T["PluginText"] or "");
 
-		FoodAndDrinks.Message=Turbine.UI.Label(); 
-		FoodAndDrinks.Message:SetParent(FoodAndDrinks); 
-		FoodAndDrinks.Message:SetSize(150,10); 
-		FoodAndDrinks.Message:SetPosition(windowWidth/2 - 75, windowHeight - 20 ); 
-		FoodAndDrinks.Message:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleCenter); 
-		if(settings["borderShow"]["value"] == true)then
-			FoodAndDrinks.Message:SetText( T[ "PluginText" ] ); 
-		else
-			FoodAndDrinks.Message:SetText( "" ); 
-		end
+    FoodAndDrinks:SetZOrder(0);
+    FoodAndDrinks:SetWantsKeyEvents(true);
 
-		FoodAndDrinks:SetZOrder(0);
-		FoodAndDrinks:SetWantsKeyEvents(true);
-		FoodAndDrinks:SetWantsUpdates(true);
-		FoodAndDrinks:SetPosition(settings["windowPosition"]["xPos"], settings["windowPosition"]["yPos"]);
+    local x, y = ClampMainWindowPosition(FoodAndDrinks);
+    FoodAndDrinks:SetPosition(x, y);
 
-		------------------------------------------------------------------------------------------
-		-- center window --
-		------------------------------------------------------------------------------------------
+    for i = 1, totalSlots do
+        if nbrSlot == slotsPerLine then
+            verticalPosition = verticalPosition + 40;
+            nbrSlot = 0;
+            horizontalPosition = 20;
+        end
 
-		for i=1, totalSlots do
-			if(nbrSlot == tonumber(settings["nbrSlots"]["nbr"]))then
-				verticalPosition = verticalPosition + 40;
-				nbrSlot = 0;
-				horizontalPosition = 20;
-			end
+        centerWindow[i] = Turbine.UI.Extensions.SimpleWindow();
+        centerWindow[i]:SetSize(iconSize, iconSize);
+        centerWindow[i]:SetParent(FoodAndDrinks);
+        centerWindow[i]:SetPosition(horizontalPosition, verticalPosition);
+        centerWindow[i]:SetVisible(true);
+        centerWindow[i]:SetBackColor(Turbine.UI.Color(.3, .5, .7, .5));
 
-			centerWindow[i] = Turbine.UI.Extensions.SimpleWindow();
-			centerWindow[i]:SetSize( iconSize , iconSize );
-			centerWindow[i]:SetParent( FoodAndDrinks );
-			centerWindow[i]:SetPosition( horizontalPosition , verticalPosition);
-			centerWindow[i]:SetVisible( true );
-			-- All slots use the same background color.
-			centerWindow[i]:SetBackColor( Turbine.UI.Color( .3, .5, .7, .5) );
+        local label = Turbine.UI.Label();
+        label:SetParent(centerWindow[i]);
+        label:SetPosition(0, 0);
+        label:SetSize(iconSize, iconSize);
+        label:SetText("");
+        label:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleCenter);
+        label:SetZOrder(-1);
+        label:SetMouseVisible(false);
 
-			centerLabel = Turbine.UI.Label();
-			centerLabel:SetParent(centerWindow[i]);
-			centerLabel:SetPosition( 0, 0 );
-			centerLabel:SetSize( iconSize, iconSize  );
-			centerLabel:SetText( "" );
-			centerLabel:SetTextAlignment( Turbine.UI.ContentAlignment.MiddleCenter );
-			centerLabel:SetZOrder(-1);
-			centerLabel:SetMouseVisible(false);
+        centerQS[i] = Turbine.UI.Lotro.Quickslot();
+        centerQS[i]:SetParent(centerWindow[i]);
+        centerQS[i]:SetPosition(1, 1);
+        centerQS[i]:SetSize(iconSize - 4, iconSize - 4);
+        centerQS[i]:SetUseOnRightClick(false);
 
-			centerQS[i] = Turbine.UI.Lotro.Quickslot();
-			centerQS[i]:SetParent( centerWindow[i] );
-			centerQS[i]:SetPosition( 1, 1 );
-			centerQS[i]:SetSize( iconSize-4, iconSize-4 );
-			centerQS[i]:SetUseOnRightClick(false);
+        nbrSlot = nbrSlot + 1;
+        horizontalPosition = horizontalPosition + 42;
+    end
 
-			nbrSlot = nbrSlot + 1;
-			horizontalPosition = horizontalPosition + 42;
-		end
-------------------------------------------------------------------------------------------
--- setting the datas	
-------------------------------------------------------------------------------------------
-	SettingTheShortCuts();
-	DragAndDrop();
-	DeleteShortCutes();
-	EscapeKeyPressed();
-	ClosingTheWindow();
+    SettingTheShortCuts();
+    DragAndDrop();
+    DeleteShortCutes();
+    EscapeKeyPressed();
+    ClosingTheWindow();
+    WindowPositionChanged();
+
+    FoodAndDrinks:SetVisible(settings.isWindowVisible.isWindowVisible == true);
 end
 
-------------------------------------------------------------------------------------------
--- setting the shortcuts	
-------------------------------------------------------------------------------------------
 function SettingTheShortCuts()
-	local totalSlots = tonumber(settings["nbrSlots"]["nbr"]) * tonumber(settings["nbrLine"]["nbr"]);
+    local totalSlots = math.min(
+        NbrSlotsMax,
+        (tonumber(settings.nbrSlots.nbr) or 7) * (tonumber(settings.nbrLine.nbr) or 1)
+    );
 
-	for i=1, totalSlots do
-		if(settings["shortcuts"]["Data" .. i] ~= "") then
-			centerQS[i]:SetShortcut( Turbine.UI.Lotro.Shortcut( settings["shortcuts"]["Type" .. i], settings["shortcuts"]["Data" .. i] ) );
-		end
-	end
+    for i = 1, totalSlots do
+        local data = settings.shortcuts["Data" .. i];
+        local shortcutType = settings.shortcuts["Type" .. i];
+
+        if data ~= nil and data ~= "" then
+            centerQS[i]:SetShortcut(Turbine.UI.Lotro.Shortcut(shortcutType, data));
+        end
+    end
 end
-------------------------------------------------------------------------------------------
--- setting the shortcuts for drag and drop	
-------------------------------------------------------------------------------------------
+
+local function RestoreSavedShortcut(slotIndex)
+    local data = settings.shortcuts["Data" .. slotIndex];
+    local shortcutType = settings.shortcuts["Type" .. slotIndex];
+
+    if data ~= nil and data ~= "" then
+        centerQS[slotIndex]:SetShortcut(Turbine.UI.Lotro.Shortcut(shortcutType, data));
+    else
+        centerQS[slotIndex]:SetShortcut(Turbine.UI.Lotro.Shortcut());
+    end
+end
+
 function DragAndDrop()
-	local totalSlots = tonumber(settings["nbrSlots"]["nbr"]) * tonumber(settings["nbrLine"]["nbr"]);
+    local totalSlots = math.min(
+        NbrSlotsMax,
+        (tonumber(settings.nbrSlots.nbr) or 7) * (tonumber(settings.nbrLine.nbr) or 1)
+    );
 
-	for i=1, totalSlots do
-		local slotIndex = i;
-		centerQS[slotIndex].DragDrop = function(sender, args)
-			local shortcut = centerQS[slotIndex]:GetShortcut();
-			settings["shortcuts"]["Data" .. slotIndex] = shortcut:GetData();
-			settings["shortcuts"]["Type" .. slotIndex] = shortcut:GetType();
-			SaveSettings();
-		end
-	end
+    for i = 1, totalSlots do
+        local slotIndex = i;
+
+        centerQS[slotIndex].DragDrop = function(sender, args)
+            if settings.isLocked == true then
+                RestoreSavedShortcut(slotIndex);
+                return;
+            end
+
+            local shortcut = centerQS[slotIndex]:GetShortcut();
+            settings.shortcuts["Data" .. slotIndex] = shortcut:GetData();
+            settings.shortcuts["Type" .. slotIndex] = shortcut:GetType();
+            SaveSettings();
+        end
+    end
 end
-------------------------------------------------------------------------------------------
--- delete the shortcut with mouse wheel
-------------------------------------------------------------------------------------------
-function DeleteShortcut(slotIndex, forceDelete)
-	-- Mouse-wheel deletion keeps the original lock protection.
-	-- A deliberate right-click can always remove a shortcut, even if the
-	-- legacy saved setting says the icons are locked. This avoids the old
-	-- silent failure where an existing icon looked impossible to remove.
-	if(forceDelete == true or settings.isLocked == false)then
-		settings["shortcuts"]["Data" .. slotIndex] = "";
-		settings["shortcuts"]["Type" .. slotIndex] = "";
-		centerQS[slotIndex]:SetShortcut(Turbine.UI.Lotro.Shortcut());
-		SaveSettings();
-	end
+
+function DeleteShortcut(slotIndex)
+    if settings.isLocked == true then
+        return;
+    end
+
+    settings.shortcuts["Data" .. slotIndex] = "";
+    settings.shortcuts["Type" .. slotIndex] = 0;
+    centerQS[slotIndex]:SetShortcut(Turbine.UI.Lotro.Shortcut());
+    SaveSettings();
 end
 
 function DeleteShortCutes()
-	local totalSlots = tonumber(settings["nbrSlots"]["nbr"]) * tonumber(settings["nbrLine"]["nbr"]);
+    local totalSlots = math.min(
+        NbrSlotsMax,
+        (tonumber(settings.nbrSlots.nbr) or 7) * (tonumber(settings.nbrLine.nbr) or 1)
+    );
 
-	for i=1, totalSlots do
-		local slotIndex = i;
+    for i = 1, totalSlots do
+        local slotIndex = i;
 
-		-- Keep the original mouse-wheel deletion while unlocked.
-		centerQS[slotIndex].MouseWheel = function(sender, args)
-			DeleteShortcut(slotIndex, false);
-		end
+        centerQS[slotIndex].MouseWheel = function(sender, args)
+            DeleteShortcut(slotIndex);
+        end
 
-		-- A right-click is an explicit delete action. Do not let a stale/default
-		-- locked state make the click appear broken. SetUseOnRightClick(false)
-		-- above prevents the underlying consumable/shortcut from being used.
-		centerQS[slotIndex].MouseClick = function(sender, args)
-			if(args.Button == Turbine.UI.MouseButton.Right)then
-				DeleteShortcut(slotIndex, true);
-			end
-		end
-	end
+        centerQS[slotIndex].MouseClick = function(sender, args)
+            if args.Button == Turbine.UI.MouseButton.Right then
+                DeleteShortcut(slotIndex);
+            end
+        end
+    end
 end
-------------------------------------------------------------------------------------------
--- MousCLick Handler
-------------------------------------------------------------------------------------------
-function MouseClickHandler()
-	local totalSlots = tonumber(settings["nbrSlots"]["nbr"]) * tonumber(settings["nbrLine"]["nbr"]);
 
-	if(totalSlots < 7 or totalSlots > 7)then
-		centerQS[totalSlots].MouseClick = function(sender, args)
-			FoodAndDrinks:SetVisible(false);
-			settings["isWindowVisible"]["isWindowVisible"] = false;
-			SaveSettings();
-		end
-	else
-		centerQS[7].MouseClick = function(sender, args)
-			FoodAndDrinks:SetVisible(false);
-			settings["isWindowVisible"]["isWindowVisible"] = false;
-			SaveSettings();
-		end
-	end
-end
-------------------------------------------------------------------------------------------
--- Closing window handler
-------------------------------------------------------------------------------------------
 function ClosingTheWindow()
-	function FoodAndDrinks:Closing(sender, args)
-		settings["isWindowVisible"]["isWindowVisible"] = false;
-		SaveSettings();
-	end
+    FoodAndDrinks.Closing = function(sender, args)
+        args.Cancel = true;
+        sender:SetVisible(false);
+        settings.isWindowVisible.isWindowVisible = false;
+        SaveSettings();
+    end
 end
-------------------------------------------------------------------------------------------
--- updating the window
-------------------------------------------------------------------------------------------
+
 function UpdateWindow()
-	-- Rebuild the UI without erasing the shortcut data.
-	if(FoodAndDrinks ~= nil)then
-		FoodAndDrinks:SetVisible(false);
-	end
-	centerWindow = {};
-	centerLabel = {};
-	centerQS = {};
-	GenerateWindow();
-	WindowPositionChanged();
+    if FoodAndDrinks ~= nil then
+        FoodAndDrinks:SetVisible(false);
+    end
+
+    centerWindow = {};
+    centerQS = {};
+    GenerateWindow();
 end
-------------------------------------------------------------------------------------------
--- updating the options window
-------------------------------------------------------------------------------------------
+
 function UpdateOptionsWindow()
-	GenerateOptionsWindow();
-	EscapeKeyPressed();
-	ClosingTheWindow();
-	ClosingTheOptionsWindow();
+    if OptionsWindow ~= nil then
+        OptionsWindow:SetVisible(false);
+    end
+
+    GenerateOptionsWindow();
 end

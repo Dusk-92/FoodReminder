@@ -1,134 +1,124 @@
 ------------------------------------------------------------------------------------------
--- Command file
+-- Commands
 -- FoodReminder - Dusk
--- 7 january 2021
 ------------------------------------------------------------------------------------------
+
 FoodAndDrinksCommand = Turbine.ShellCommand();
-------------------------------------------------------------------------------------------
--- commands
-------------------------------------------------------------------------------------------
-function FoodAndDrinksCommand:Execute( command, arguments )
-	local args3, value3, value4 = arguments:match "(repos) (.*) (.*)";
-	------------------------------------------------------------------------------------------
-	-- Help command--
-	------------------------------------------------------------------------------------------
-	if ( arguments == "help" ) then
-		commandsHelp();
-------------------------------------------------------------------------------------------
--- show command--
-------------------------------------------------------------------------------------------
-	elseif ( arguments == "show" ) then
-		Write(rgb["start"] .. pluginName .. rgb["clear"] .. " - " .. T[ "PluginWindowShow" ]);
-		FoodAndDrinks:SetVisible(true);
-		settings["isWindowVisible"]["isWindowVisible"] = true;
-		SaveSettings();
-------------------------------------------------------------------------------------------
--- hide command--
-------------------------------------------------------------------------------------------
-	elseif ( arguments == "hide" ) then
-		Write(rgb["start"] .. pluginName .. rgb["clear"] .. " - " .. T[ "PluginWindowHide" ]);
-		FoodAndDrinks:SetVisible(false);
-		settings["isWindowVisible"]["isWindowVisible"] = false;
-		SaveSettings();
-------------------------------------------------------------------------------------------
--- toggle command--
-------------------------------------------------------------------------------------------
-	elseif ( arguments == "toggle" ) then
-		if(settings["isWindowVisible"]["isWindowVisible"] == true)then
-			Write(rgb["start"] .. T[ "PluginName" ] .. rgb["clear"] .. " - " .. T[ "PluginWindowHide" ]);
-			FoodAndDrinks:SetVisible(false);
-			settings["isWindowVisible"]["isWindowVisible"] = false;
-		else
-			Write(rgb["start"] .. T[ "PluginName" ] .. rgb["clear"] .. " - " .. T[ "PluginWindowShow" ]);
-			FoodAndDrinks:SetVisible(true);
-			settings["isWindowVisible"]["isWindowVisible"] = true;
-		end
-		SaveSettings();
-------------------------------------------------------------------------------------------
--- lock command--
-------------------------------------------------------------------------------------------
-	elseif ( arguments == "lock" ) then
-		--Write("Hide the PopoHelper Window");
-		if(settings.isLocked == false)then
-			settings.isLocked = true;
-			Write(rgb["start"] .. T[ "PluginName" ] .. rgb["clear"] .. " : " .. T[ "PluginLocked" ]);
-		else
-			settings.isLocked = false;
-			Write(rgb["start"] .. T[ "PluginName" ] .. rgb["clear"] .. " : " .. T[ "PluginUnlocked" ]);
-		end
-		SaveSettings();
-------------------------------------------------------------------------------------------
--- options command--
-------------------------------------------------------------------------------------------
-	elseif ( arguments == "options" ) then
-		Write("Display the options Window");
-		OptionsWindow:SetVisible(true);
-		FoodAndDrinks:SetVisible(false);
-		settings["isWindowVisible"]["isWindowVisible"] = false;
-		settings["isOptionsWindowVisible"]["isOptionsWindowVisible"] = true;
-		SaveSettings();
-------------------------------------------------------------------------------------------
--- clear command--
-------------------------------------------------------------------------------------------
-	elseif ( arguments == "clear" ) then
-		Write(rgb["start"] .. pluginName .. rgb["clear"] .. " - " .. T[ "PluginWindowClear" ]);
-		ClearWindow();
-		SaveSettings();
-------------------------------------------------------------------------------------------
--- esc command--
-------------------------------------------------------------------------------------------
-	elseif ( arguments == "esc" ) then
-		if(settings["escEnable"]["escEnable"] == true) then
-			Write(rgb["start"] .. pluginName .. rgb["clear"] .. " - " .. T[ "PluginEscDesable" ]);
-			settings["escEnable"]["escEnable"] = false;
-		else
-			Write(rgb["start"] .. pluginName .. rgb["clear"] .. " - " .. T[ "PluginEscEnable" ]);
-			settings["escEnable"]["escEnable"] = true;
-		end
-		SaveSettings();
-------------------------------------------------------------------------------------------
--- reposition command --
-------------------------------------------------------------------------------------------
-	elseif ( arguments == "repos" ) then
-			Write(rgb["start"] .. T[ "PluginName" ] .. rgb["clear"] .. " : " .. T[ "PluginPosition" ] .. " X: " .. settings["IconPosition"]["xPosIcon"]);
-			Write(rgb["start"] .. T[ "PluginName" ] .. rgb["clear"] .. " : " .. T[ "PluginPosition" ] .. " Y: " .. settings["IconPosition"]["yPosIcon"]);
-	elseif ( args3 == "repos" ) then
-		Write(rgb["start"] .. T[ "PluginName" ] .. rgb["clear"] .. " : " .. T[ "PluginResize" ] .. " " .. value3 .. "x" .. value4);
-		settings["IconPosition"]["xPosIcon"] = value3;
-		settings["IconPosition"]["yPosIcon"] = value4;
-		SaveSettings();
-		Write(T[ "PluginUnload" ] .. " " .. T[ "PluginName" ]);
-		Write(T[ "PluginReload" ] .. " " .. T[ "PluginName" ]);
-------------------------------------------------------------------------------------------
--- alt command--
-------------------------------------------------------------------------------------------
-	elseif ( arguments == "alt" ) then
-		if(settings["altEnable"]["altEnable"] == true) then
-			Write(rgb["start"] .. T[ "PluginName" ] .. rgb["clear"] .. " - " .. T[ "PluginAltEnable" ]);
-			settings["altEnable"]["altEnable"] = false;
-		else
-			Write(rgb["start"] .. T[ "PluginName" ] .. rgb["clear"] .. " - " .. T[ "PluginAltEnable" ]);
-			settings["altEnable"]["altEnable"] = true;
-		end
-		SaveSettings();
-------------------------------------------------------------------------------------------
--- default if nothing is right command --
-------------------------------------------------------------------------------------------
-	elseif ( arguments ~= "help" or 
-			arguments ~= "show" or 
-			arguments ~= "hide" or 
-			arguments ~= "repos" or 
-			arguments ~= "lock" or 
-			arguments ~= "options" or 
-			arguments ~= "clear" or 
-			arguments ~= "toggle" or 
-			arguments ~= "esc" or 
-			arguments ~= "alt") then
-			-- nothing found, so display the help
-		commandsHelp();
-	end
+
+local function Trim(value)
+    return (tostring(value or ""):gsub("^%s+", ""):gsub("%s+$", ""));
 end
-------------------------------------------------------------------------------------------
--- Add the sahell command --
-------------------------------------------------------------------------------------------
-Turbine.Shell.AddCommand( "Fo;FoodReminder;FoodAndDrinks", FoodAndDrinksCommand );
+
+local function SetMainWindowVisible(value)
+    FoodAndDrinks:SetVisible(value);
+    settings.isWindowVisible.isWindowVisible = value;
+end
+
+local function RepositionLauncher(x, y)
+    x = tonumber(x);
+    y = tonumber(y);
+
+    if x == nil or y == nil then
+        return false;
+    end
+
+    x = math.floor(x);
+    y = math.floor(y);
+
+    local maxX = math.max(0, Turbine.UI.Display:GetWidth() - 33);
+    local maxY = math.max(0, Turbine.UI.Display:GetHeight() - 33);
+
+    if x < 0 then x = 0; end
+    if y < 0 then y = 0; end
+    if x > maxX then x = maxX; end
+    if y > maxY then y = maxY; end
+
+    settings.IconPosition.xPosIcon = x;
+    settings.IconPosition.yPosIcon = y;
+
+    if MainMinimizedIcon ~= nil then
+        MainMinimizedIcon:SetPosition(x, y);
+    end
+
+    return true;
+end
+
+function FoodAndDrinksCommand:Execute(command, arguments)
+    arguments = Trim(arguments);
+    local lower = string.lower(arguments);
+
+    if lower == "help" or lower == "" then
+        commandsHelp();
+
+    elseif lower == "show" then
+        Write(rgb.start .. pluginName .. rgb.clear .. " - " .. T["PluginWindowShow"]);
+        SetMainWindowVisible(true);
+        if OptionsWindow ~= nil then OptionsWindow:SetVisible(false); end
+        settings.isOptionsWindowVisible.isOptionsWindowVisible = false;
+        SaveSettings();
+
+    elseif lower == "hide" then
+        Write(rgb.start .. pluginName .. rgb.clear .. " - " .. T["PluginWindowHide"]);
+        SetMainWindowVisible(false);
+        SaveSettings();
+
+    elseif lower == "toggle" then
+        local visible = not FoodAndDrinks:IsVisible();
+        SetMainWindowVisible(visible);
+        Write(rgb.start .. pluginName .. rgb.clear .. " - "
+            .. (visible and T["PluginWindowShow"] or T["PluginWindowHide"]));
+        SaveSettings();
+
+    elseif lower == "lock" then
+        settings.isLocked = not (settings.isLocked == true);
+        Write(rgb.start .. pluginName .. rgb.clear .. " : "
+            .. (settings.isLocked and T["PluginLocked"] or T["PluginUnlocked"]));
+        SaveSettings();
+
+    elseif lower == "options" then
+        Write(rgb.start .. pluginName .. rgb.clear .. " - " .. T["PluginOptionsWindowShow"]);
+        OptionsWindow:SetVisible(true);
+        SetMainWindowVisible(false);
+        settings.isOptionsWindowVisible.isOptionsWindowVisible = true;
+        SaveSettings();
+
+    elseif lower == "clear" then
+        Write(rgb.start .. pluginName .. rgb.clear .. " - " .. T["PluginWindowClear"]);
+        ClearWindow();
+        SaveSettings();
+
+    elseif lower == "esc" then
+        settings.escEnable.escEnable = not (settings.escEnable.escEnable == true);
+        Write(rgb.start .. pluginName .. rgb.clear .. " - "
+            .. (settings.escEnable.escEnable and T["PluginEscEnable"] or T["PluginEscDesable"]));
+        SaveSettings();
+
+    elseif lower == "repos" then
+        Write(rgb.start .. pluginName .. rgb.clear .. " : " .. T["PluginPosition"]
+            .. " X: " .. tostring(settings.IconPosition.xPosIcon));
+        Write(rgb.start .. pluginName .. rgb.clear .. " : " .. T["PluginPosition"]
+            .. " Y: " .. tostring(settings.IconPosition.yPosIcon));
+
+    elseif string.match(lower, "^repos%s+") then
+        local x, y = string.match(lower, "^repos%s+([%-]?%d+)%s+([%-]?%d+)%s*$");
+        if RepositionLauncher(x, y) then
+            Write(rgb.start .. pluginName .. rgb.clear .. " : " .. T["PluginResize"]
+                .. tostring(settings.IconPosition.xPosIcon) .. "x"
+                .. tostring(settings.IconPosition.yPosIcon));
+            SaveSettings();
+        else
+            Write(rgb.error .. T["PluginPositionInvalid"] .. rgb.clear);
+        end
+
+    elseif lower == "alt" then
+        settings.altEnable.altEnable = not (settings.altEnable.altEnable == true);
+        Write(rgb.start .. pluginName .. rgb.clear .. " - "
+            .. (settings.altEnable.altEnable and T["PluginAltEnable"] or T["PluginAltDesable"]));
+        SaveSettings();
+
+    else
+        commandsHelp();
+    end
+end
+
+Turbine.Shell.AddCommand("Fo;FoodReminder;FoodAndDrinks", FoodAndDrinksCommand);
