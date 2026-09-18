@@ -10,7 +10,9 @@ Fenêtre de raccourcis configurable pour regrouper nourriture, boissons, consomm
 
 ### 📖 Présentation
 
-**FoodReminder** regroupe des raccourcis LOTRO dans une petite fenêtre configurable afin de garder facilement sous la main nourriture, boissons, consommables ou autres actions utiles.
+**FoodReminder** est basé sur le plugin **FoodAndDrinks** créé par [**homeopatix**](https://www.lotrointerface.com/forums/member.php?action=getinfo&userid=11432).
+
+Cette version reprend ce concept pour regrouper des raccourcis LOTRO dans une petite fenêtre configurable afin de garder facilement sous la main nourriture, boissons, consommables ou autres actions utiles, avec des adaptations, corrections et améliorations maintenues par **Dusk-92**.
 
 ### ✨ Fonctionnalités
 
@@ -68,7 +70,8 @@ Utilise les [Issues GitHub](https://github.com/Dusk-92/FoodReminder/issues).
 
 ### 🙏 Crédits
 
-Développement et maintenance : **Dusk-92**.
+- **FoodAndDrinks** — plugin original créé par [**homeopatix**](https://www.lotrointerface.com/forums/member.php?action=getinfo&userid=11432).
+- **Dusk-92** — adaptation, corrections, améliorations et maintenance de **FoodReminder**.
 
 ---
 
@@ -76,7 +79,9 @@ Développement et maintenance : **Dusk-92**.
 
 ### 📖 Overview
 
-**FoodReminder** groups LOTRO shortcuts into a small configurable window so food, drinks, consumables and other useful actions stay easy to reach.
+**FoodReminder** is based on **FoodAndDrinks**, originally created by [**homeopatix**](https://www.lotrointerface.com/forums/member.php?action=getinfo&userid=11432).
+
+This version keeps the original concept of grouping LOTRO shortcuts into a small configurable window for food, drinks, consumables and other useful actions, with adaptations, fixes and improvements maintained by **Dusk-92**.
 
 ### ✨ Features
 
@@ -134,7 +139,8 @@ Use [GitHub Issues](https://github.com/Dusk-92/FoodReminder/issues).
 
 ### 🙏 Credits
 
-Development and maintenance: **Dusk-92**.
+- **FoodAndDrinks** — original plugin created by [**homeopatix**](https://www.lotrointerface.com/forums/member.php?action=getinfo&userid=11432).
+- **Dusk-92** — adaptation, fixes, improvements and maintenance of **FoodReminder**.
 
 ---
 
@@ -142,7 +148,9 @@ Development and maintenance: **Dusk-92**.
 
 ### 📖 Übersicht
 
-**FoodReminder** bündelt LOTRO-Verknüpfungen in einem kleinen konfigurierbaren Fenster, damit Nahrung, Getränke, Verbrauchsgegenstände und andere Aktionen schnell erreichbar bleiben.
+**FoodReminder** basiert auf dem Plugin **FoodAndDrinks**, das ursprünglich von [**homeopatix**](https://www.lotrointerface.com/forums/member.php?action=getinfo&userid=11432) erstellt wurde.
+
+Diese Version übernimmt das Grundkonzept eines kleinen konfigurierbaren Fensters für Nahrung, Getränke, Verbrauchsgegenstände und andere LOTRO-Verknüpfungen und wird von **Dusk-92** angepasst, verbessert und gepflegt.
 
 ### ✨ Funktionen
 
@@ -200,4 +208,5 @@ Bitte die [GitHub Issues](https://github.com/Dusk-92/FoodReminder/issues) verwen
 
 ### 🙏 Credits
 
-Entwicklung und Wartung: **Dusk-92**.
+- **FoodAndDrinks** — ursprüngliches Plugin von [**homeopatix**](https://www.lotrointerface.com/forums/member.php?action=getinfo&userid=11432).
+- **Dusk-92** — Anpassung, Korrekturen, Verbesserungen und Wartung von **FoodReminder**.
