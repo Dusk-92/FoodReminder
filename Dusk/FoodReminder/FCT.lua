@@ -46,7 +46,8 @@ end
 
 function EscapeKeyPressed()
     FoodAndDrinks.KeyDown = function(sender, args)
-        if args.Action == Turbine.UI.Lotro.Action.Escape then
+        local escapeAction = Turbine.UI.Lotro.Action.EscapeKey or Turbine.UI.Lotro.Action.Escape;
+        if args.Action == escapeAction then
             if settings.escEnable.escEnable == true then
                 FoodAndDrinks:SetVisible(false);
                 settings.isWindowVisible.isWindowVisible = false;

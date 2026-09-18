@@ -44,7 +44,7 @@ end
 -- Missing/new fields are filled from Init.lua and existing shortcuts are preserved.
 ------------------------------------------------------------------------------------------
 function LoadSettings()
-    local loaded = PatchDataLoad(dataScope, settingsFileName, settings);
+    local loaded = PatchDataLoad(dataScope, settingsFileName);
 
     if type(loaded) == "table" then
         CopyPosition(loaded.windowPosition, settings.windowPosition, "xPos", "yPos");
